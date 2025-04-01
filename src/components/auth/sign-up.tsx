@@ -1,8 +1,7 @@
 import type { FormProps } from "antd";
 import { Button, Form, Input } from "antd";
-import { useNotificationContext } from "../../context/notification";
-import { authApi, ISignUp } from "../../api/auth.api";
-import { useMutation } from "@tanstack/react-query";
+import { useSignUp } from "../../api/react-query/auth-react-query";
+import { ISignUpPayload } from "../../models/auth.model";
 
 type FieldType = {
   name: string;
@@ -11,17 +10,11 @@ type FieldType = {
 };
 
 export default function SignUp() {
-  // Context
-  const notification = useNotificationContext();
-
   // Query
-  const authMutation = useMutation({
-    mutationFn: (data: ISignUp) => authApi.signUp(data),
-  });
+  const authMutation = useSignUp();
 
-  const onFinish: FormProps<ISignUp>["onFinish"] = async (values) => {
-    await authMutation.mutateAsync(values);
-    notification.success("Sign up successfully");
+  const onFinish: FormProps<ISignUpPayload>["onFinish"] = (values) => {
+    authMutation.mutate(values);
   };
 
   const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {

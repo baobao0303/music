@@ -1,10 +1,5 @@
+import { ISignUpPayload, ISignupResponse } from "../models/auth.model";
 import axiosClient from "./axiosClient";
-
-export interface ISignUp {
-  name: string;
-  username: string;
-  password: string;
-}
 
 interface ISignIn {
   username: string;
@@ -12,9 +7,9 @@ interface ISignIn {
 }
 
 export const authApi = {
-  signUp(data: ISignUp) {
+  signUp(data: ISignUpPayload) {
     const url = "/auth/sign-up";
-    return axiosClient.post(url, data);
+    return axiosClient.post<unknown, ISignupResponse>(url, data);
   },
 
   signIn(data: ISignIn) {
