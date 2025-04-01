@@ -3,12 +3,6 @@ import { Button, Form, Input } from "antd";
 import { useSignUp } from "../../api/react-query/auth-react-query";
 import { ISignUpPayload } from "../../models/auth.model";
 
-type FieldType = {
-  name: string;
-  username: string;
-  password: string;
-};
-
 export default function SignUp() {
   // Query
   const authMutation = useSignUp();
@@ -17,7 +11,7 @@ export default function SignUp() {
     authMutation.mutate(values);
   };
 
-  const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
+  const onFinishFailed: FormProps<ISignUpPayload>["onFinishFailed"] = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
   return (
@@ -31,7 +25,7 @@ export default function SignUp() {
       onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
-      <Form.Item<FieldType>
+      <Form.Item<ISignUpPayload>
         label="Name"
         name="name"
         rules={[
@@ -42,7 +36,7 @@ export default function SignUp() {
         <Input />
       </Form.Item>
 
-      <Form.Item<FieldType>
+      <Form.Item<ISignUpPayload>
         label="Username"
         name="username"
         rules={[{ required: true, message: "Please input your username!" }]}
@@ -50,7 +44,7 @@ export default function SignUp() {
         <Input />
       </Form.Item>
 
-      <Form.Item<FieldType>
+      <Form.Item<ISignUpPayload>
         label="Password"
         name="password"
         rules={[

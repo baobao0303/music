@@ -15,3 +15,20 @@ export interface ISignupResponse {
     };
   };
 }
+
+export interface ISignInPayload {
+  username: string;
+  password: string;
+}
+export interface ISignInResponse {
+  message: string;
+  data: {
+    accessToken: string;
+    user: {
+      username: string;
+      name: string;
+      provider: string;
+      role: string;
+    };
+  };
+}

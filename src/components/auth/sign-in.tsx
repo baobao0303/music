@@ -1,20 +1,19 @@
 import type { FormProps } from "antd";
 import { Button, Form, Input } from "antd";
-
-type FieldType = {
-  username?: string;
-  password?: string;
-};
-
-const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-  console.log("Success:", values);
-};
-
-const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
-  console.log("Failed:", errorInfo);
-};
+import { useSignIn } from "../../api/react-query/auth-react-query";
+import { ISignInPayload } from "../../models/auth.model";
 
 export default function SignIn() {
+  // Query
+  const authMutation = useSignIn();
+
+  const onFinish: FormProps<ISignInPayload>["onFinish"] = (values) => {
+    authMutation.mutate(values);
+  };
+
+  const onFinishFailed: FormProps<ISignInPayload>["onFinishFailed"] = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
   return (
     <Form
       name="basic"
@@ -26,7 +25,7 @@ export default function SignIn() {
       onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
-      <Form.Item<FieldType>
+      <Form.Item<ISignInPayload>
         label="Username"
         name="username"
         rules={[{ required: true, message: "Please input your username!" }]}
@@ -34,7 +33,7 @@ export default function SignIn() {
         <Input />
       </Form.Item>
 
-      <Form.Item<FieldType>
+      <Form.Item<ISignInPayload>
         label="Password"
         name="password"
         rules={[
@@ -53,7 +52,7 @@ export default function SignIn() {
       </Form.Item>
 
       <Form.Item label={null}>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" disabled={authMutation.isPending}>
           Submit
         </Button>
       </Form.Item>
