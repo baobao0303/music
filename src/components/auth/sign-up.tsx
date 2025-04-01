@@ -1,17 +1,17 @@
 import type { FormProps } from "antd";
 import { Button, Form, Input } from "antd";
 import { useSignUp } from "../../api/react-query/auth-react-query";
-import { ISignUpPayload } from "../../models/auth.model";
+import { IAuthPayload } from "../../models/auth.model";
 
 export default function SignUp() {
   // Query
   const authMutation = useSignUp();
 
-  const onFinish: FormProps<ISignUpPayload>["onFinish"] = (values) => {
+  const onFinish: FormProps<IAuthPayload>["onFinish"] = (values) => {
     authMutation.mutate(values);
   };
 
-  const onFinishFailed: FormProps<ISignUpPayload>["onFinishFailed"] = (errorInfo) => {
+  const onFinishFailed: FormProps<IAuthPayload>["onFinishFailed"] = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
   return (
@@ -25,7 +25,7 @@ export default function SignUp() {
       onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
-      <Form.Item<ISignUpPayload>
+      <Form.Item<IAuthPayload>
         label="Name"
         name="name"
         rules={[
@@ -36,7 +36,7 @@ export default function SignUp() {
         <Input />
       </Form.Item>
 
-      <Form.Item<ISignUpPayload>
+      <Form.Item<IAuthPayload>
         label="Username"
         name="username"
         rules={[{ required: true, message: "Please input your username!" }]}
@@ -44,7 +44,7 @@ export default function SignUp() {
         <Input />
       </Form.Item>
 
-      <Form.Item<ISignUpPayload>
+      <Form.Item<IAuthPayload>
         label="Password"
         name="password"
         rules={[

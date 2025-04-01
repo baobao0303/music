@@ -1,13 +1,13 @@
-import { ISignInPayload, ISignUpPayload, ISignupResponse } from "../models/auth.model";
+import { IAuthPayload, IAuthResponse } from "../models/auth.model";
 import axiosClient from "./axiosClient";
 
 export const authApi = {
-  signUp(data: ISignUpPayload) {
+  signUp(data: IAuthPayload) {
     const url = "/auth/sign-up";
-    return axiosClient.post<unknown, ISignupResponse>(url, data);
+    return axiosClient.post<unknown, IAuthResponse>(url, data);
   },
 
-  signIn(data: ISignInPayload) {
+  signIn(data: IAuthPayload) {
     const url = "/auth/sign-in";
     return axiosClient.post(url, data);
   },

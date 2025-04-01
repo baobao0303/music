@@ -17,11 +17,14 @@ const axiosClient = axios.create({
   baseURL: "http://localhost:5001/api/v1",
   headers: {
     "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
   },
 });
 
 axiosClient.interceptors.request.use(
   function (config) {
+    // Do something before request is sent
+    config.headers["Authorization"] = `Bearer ${localStorage.getItem("accessToken")}`;
     return config;
   },
   function (error) {

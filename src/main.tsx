@@ -9,11 +9,16 @@ import SignInPage from "./pages/sign-in/sign-in-page.tsx";
 import NotificationProvider, { globalNotify } from "./context/notification.tsx";
 import { MutationCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import ProtectedRoute from "./components/auth/protected-route.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />,
+    element: (
+      <ProtectedRoute>
+        <RootLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         index: true,

@@ -94,6 +94,9 @@ export default function RootLayout() {
           style={{ flex: 1, minWidth: 0 }}
           selectedKeys={[selectedChildrenKeys[0]]} // children
           openKeys={[selectParentKeys[0]]} // parent
+          onOpenChange={(openKeys) => {
+            setSelectParentKeys(openKeys);
+          }}
         />
       </Header>
       {/* style={{ padding: "0 48px" }} */}
