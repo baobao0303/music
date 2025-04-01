@@ -6,6 +6,7 @@ import RootLayout from "./layout/root.tsx";
 import DashboardPage from "./pages/dashboard/dashboard-page.tsx";
 import SignUpPage from "./pages/sign-in/sign-up-page.tsx";
 import SignInPage from "./pages/sign-in/sign-in-page.tsx";
+import NotificationProvider from "./context/notification.tsx";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <NotificationProvider>
+      <RouterProvider router={router} />
+    </NotificationProvider>
   </StrictMode>
 );

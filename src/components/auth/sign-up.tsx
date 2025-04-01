@@ -1,5 +1,6 @@
 import type { FormProps } from "antd";
 import { Button, Form, Input } from "antd";
+import { useNotificationContext } from "../../context/notification";
 
 type FieldType = {
   name?: string;
@@ -7,15 +8,18 @@ type FieldType = {
   password?: string;
 };
 
-const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-  console.log("Success:", values);
-};
-
-const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
-  console.log("Failed:", errorInfo);
-};
-
 export default function SignUp() {
+  const notification = useNotificationContext();
+
+  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
+    console.log("Success:", values);
+
+    notification?.success("Sign up successfully");
+  };
+
+  const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
   return (
     <Form
       name="basic"
