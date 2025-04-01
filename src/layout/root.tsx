@@ -5,9 +5,20 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
 
-const items1: MenuProps["items"] = ["1", "2", "3"].map((key) => ({
-  key,
-  label: `nav ${key}`,
+const headerItems = [
+  {
+    key: "1",
+    label: "Home",
+  },
+  {
+    key: "2",
+    label: "Logout",
+  },
+];
+
+const items1: MenuProps["items"] = headerItems.map((item) => ({
+  key: item.key,
+  label: item.label,
 }));
 
 const routes = [
@@ -81,7 +92,19 @@ export default function RootLayout() {
   const handleMenuClick: MenuProps["onClick"] = (e) => {
     navigate(e.key);
   };
-
+  /*************  ✨ Codeium Command ⭐  *************/
+  /**
+   * Handles clicks on the header menu.
+   * If the key is "2", remove the access token from local storage and navigate to the sign-in page.
+   * @param e The event passed to the onClick callback.
+   */
+  /******  f79549d6-1dff-4997-9afa-6df63f8b0815  *******/
+  const handleHeaderMenuClick: MenuProps["onClick"] = (e) => {
+    if (e.key === "2") {
+      localStorage.removeItem("accessToken");
+      navigate("/sign-in");
+    }
+  };
   return (
     <Layout>
       <Header style={{ display: "flex", alignItems: "center" }}>
@@ -94,9 +117,7 @@ export default function RootLayout() {
           style={{ flex: 1, minWidth: 0 }}
           selectedKeys={[selectedChildrenKeys[0]]} // children
           openKeys={[selectParentKeys[0]]} // parent
-          onOpenChange={(openKeys) => {
-            setSelectParentKeys(openKeys);
-          }}
+          onClick={handleHeaderMenuClick}
         />
       </Header>
       {/* style={{ padding: "0 48px" }} */}
@@ -110,6 +131,9 @@ export default function RootLayout() {
               style={{ height: "100%" }}
               items={items2}
               onClick={handleMenuClick}
+              onOpenChange={(openKeys) => {
+                setSelectParentKeys(openKeys);
+              }}
             />
           </Sider>
           <Content style={{ padding: "0 24px", minHeight: "100vh" }}>
