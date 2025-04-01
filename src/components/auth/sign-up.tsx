@@ -1,20 +1,27 @@
 import type { FormProps } from "antd";
 import { Button, Form, Input } from "antd";
 import { useNotificationContext } from "../../context/notification";
+import { authApi, ISignUp } from "../../api/auth.api";
+import { useMutation } from "@tanstack/react-query";
 
 type FieldType = {
-  name?: string;
-  username?: string;
-  password?: string;
+  name: string;
+  username: string;
+  password: string;
 };
 
 export default function SignUp() {
+  // Context
   const notification = useNotificationContext();
 
-  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    console.log("Success:", values);
+  // Query
+  const authMutation = useMutation({
+    mutationFn: (data: ISignUp) => authApi.signUp(data),
+  });
 
-    notification?.success("Sign up successfully");
+  const onFinish: FormProps<ISignUp>["onFinish"] = async (values) => {
+    await authMutation.mutateAsync(values);
+    notification.success("Sign up successfully");
   };
 
   const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
@@ -69,7 +76,7 @@ export default function SignUp() {
       </Form.Item>
 
       <Form.Item label={null}>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" disabled={authMutation.isPending}>
           Submit
         </Button>
       </Form.Item>

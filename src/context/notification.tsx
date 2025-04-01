@@ -11,6 +11,10 @@ interface ICustomerNotification {
 }
 const NotificationContext = React.createContext<ICustomerNotification | null>(null);
 
+// GLOBAL NOTIFICATION
+
+let globalNotification: ICustomerNotification | null = null;
+
 const NotificationProvider = ({ children }: INotificationProviderProps) => {
   const [api, contextHolder] = notification.useNotification();
 
@@ -27,6 +31,8 @@ const NotificationProvider = ({ children }: INotificationProviderProps) => {
     },
   };
 
+  globalNotification = customNotifcation;
+
   return (
     <NotificationContext.Provider value={customNotifcation}>
       {contextHolder}
@@ -34,8 +40,18 @@ const NotificationProvider = ({ children }: INotificationProviderProps) => {
     </NotificationContext.Provider>
   );
 };
+
+// GLOBAL NOTIFY FUNCTION
+export const globalNotify = {
+  success: (message: string) => globalNotification?.success(message),
+  error: (message: string) => globalNotification?.error(message),
+};
 export const useNotificationContext = () => {
-  return useContext(NotificationContext);
+  const context = useContext(NotificationContext);
+  if (!context) {
+    throw new Error("useNotificationContext must be used within a NotificationProvider");
+  }
+  return context;
 };
 
 export default NotificationProvider;
