@@ -20,6 +20,41 @@ export function useSignUp() {
     },
   });
 }
+export function useSignUpArtist() {
+  // Context
+  const notification = useNotificationContext();
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: authApi.signUpArtist,
+    onSuccess: (data) => {
+      notification.success("Sign in successfully");
+      const accessToken = data.data.accessToken;
+      if (!accessToken) return;
+
+      localStorage.setItem("accessToken", accessToken);
+      navigate("/");
+    },
+  });
+}
+
+export function useSignInArtist() {
+  // Context
+  const notification = useNotificationContext();
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: authApi.signInpArtist,
+    onSuccess: (data) => {
+      notification.success("Sign in successfully");
+      const accessToken = data.data.accessToken;
+      if (!accessToken) return;
+
+      localStorage.setItem("accessToken", accessToken);
+      navigate("/");
+    },
+  });
+}
 export function useSignIn() {
   // Context
   const notification = useNotificationContext();

@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import RootLayout from "./layout/root.tsx";
+import RootLayout from "./components/layout/root.tsx";
 import DashboardPage from "./pages/dashboard/dashboard-page.tsx";
 import SignUpPage from "./pages/sign-in/sign-up-page.tsx";
 import SignInPage from "./pages/sign-in/sign-in-page.tsx";
@@ -10,6 +10,7 @@ import NotificationProvider, { globalNotify } from "./context/notification.tsx";
 import { MutationCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ProtectedRoute from "./components/auth/protected-route.tsx";
+import SongPage from "./pages/song/song-page.tsx";
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/manage-songs",
-        element: <div>Manage Song</div>,
+        element: <SongPage />,
       },
       {
         path: "/upload",
@@ -40,6 +41,14 @@ const router = createBrowserRouter([
   },
   {
     path: "/sign-in",
+    element: <SignInPage />,
+  },
+  {
+    path: "/sign-up-artist",
+    element: <SignUpPage />,
+  },
+  {
+    path: "/sign-in-artist",
     element: <SignInPage />,
   },
 ]);
