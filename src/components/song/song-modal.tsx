@@ -13,8 +13,6 @@ const SongModal = () => {
 
   const handleOk = () => {
     form.submit();
-    // Check if form is valid
-    // setIsModalOpen(false);
   };
 
   const handleCancel = () => {

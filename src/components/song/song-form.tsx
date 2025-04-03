@@ -1,32 +1,18 @@
 import { DatePicker, Form, FormProps, Input, Select } from "antd";
 
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 6 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 14 },
-  },
-};
+import { formatDateForPayload } from "../../utils/helper/date.helper";
+import { formItemLayout } from "../../utils/helper/form.helper";
 
-import { FormInstance } from "antd";
 import { useGetGenres } from "../../api/react-query/genre-react-query";
 import { useCreateSong } from "../../api/react-query/song-react-query";
-import { ISongPayload } from "../../models/song.model";
-import { formatDateForPayload } from "../../utils/helper/date.helper";
 import { useGetCurrentUser } from "../../api/react-query/user-react-query";
 import { useNotificationContext } from "../../context/notification";
 import { useQueryClient } from "@tanstack/react-query";
 
-const SongForm = ({
-  form,
-  setOpen,
-}: {
-  form: FormInstance;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+import { ISongFormProps } from "../../models/song/new-song/new-song.model";
+import { ISongPayload } from "../../models/song/song.model";
+
+const SongForm = ({ form, setOpen }: ISongFormProps) => {
   // REACT CONTEXT
   const notification = useNotificationContext();
 

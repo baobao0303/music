@@ -1,4 +1,4 @@
-import { ISongPayload, ISongResponse, ISongsResponse } from "../models/song.model";
+import { ISongPayload, ISongResponse, ISongsResponse } from "../models/song/song.model";
 import axiosClient from "./axiosClient";
 
 export const songApi = {
