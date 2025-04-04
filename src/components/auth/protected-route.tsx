@@ -13,7 +13,7 @@ export default function ProtectedRoute({ children }: IProtectedRouteProps) {
     if (isError) {
       navigate("/sign-in");
     }
-    if (data && data.data.role !== "admin") {
+    if (data && data.data.role === "user") {
       navigate("/sign-in");
     }
   }, [data, isError, navigate]);
